@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import fs from 'fs/promises';
-import Header from 'components/Header';
 import Link from 'next/link';
 import { basename } from 'path';
+import { Layout } from 'components/Layout';
 
 export default function Comic({
   id,
@@ -22,35 +22,34 @@ export default function Comic({
       <Head>
         <title>xkcd - Comiscs for developers</title>
         <meta name="description" content="Comics for developers" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Header />
-
-      <main>
+      <Layout>
         <section className="max-w-lg m-auto">
-          <h1 className="font-bold text-center">{title}</h1>
-          <Image
-            layout="responsive"
-            width={width}
-            height={height}
-            src={img}
-            alt={alt}
-          />
+          <h1 className="font-bold text-xl text-center mb-4">{title}</h1>
+          <div className="max-w-xs m-auto mb-4">
+            <Image
+              layout="responsive"
+              width={width}
+              height={height}
+              src={img}
+              alt={alt}
+            />
+          </div>
           <p>{alt}</p>
-
-          {hasPrevious && (
-            <Link href={`/comic/${prevId}`}>
-              <a className="text-gray-600">Previous</a>
-            </Link>
-          )}
-          {hasNext && (
-            <Link href={`/comic/${nextId}`}>
-              <a className="text-gray-600">Next</a>
-            </Link>
-          )}
+          <div className="flex justify-between mt-4 font-bold">
+            {hasPrevious && (
+              <Link href={`/comic/${prevId}`}>
+                <a className="text-gray-600">⬅️ Previous</a>
+              </Link>
+            )}
+            {hasNext && (
+              <Link href={`/comic/${nextId}`}>
+                <a className="text-gray-600">Next ➡️</a>
+              </Link>
+            )}
+          </div>
         </section>
-      </main>
+      </Layout>
     </>
   );
 }
