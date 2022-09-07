@@ -54,12 +54,18 @@ export default function Comic({
   );
 }
 
-export async function getStaticPaths() {
+export async function getStaticPaths({ locales }) {
   const files = await fs.readdir('./comics');
+  let paths = [];
 
-  const paths = files.map((file) => {
-    const id = basename(file, '.json');
-    return { params: { id } };
+  //locales -> ['es', 'en']
+  locales.forEach((locale) => {
+    paths = paths.concat([
+      ...files.map((file) => {
+        const id = basename(file, '.json');
+        return { params: { id }, locale };
+      }),
+    ]);
   });
 
   return {

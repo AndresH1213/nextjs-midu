@@ -1,6 +1,9 @@
 const algoliasearch = require('algoliasearch/lite');
 
-const client = algoliasearch('723XVRR562', 'b32f1ff7da0214842fae22ac2a22edde');
+const client = algoliasearch(
+  process.env.ALGOLIA_APP_ID,
+  process.env.ALGOLIA_API_KEY
+);
 const index = client.initIndex('prod_comics_next');
 
 const CACHE = {};
